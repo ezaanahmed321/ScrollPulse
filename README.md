@@ -1,5 +1,5 @@
 # ScrollPulse 🫧
-[License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+[License: Proprietary - All Rights Reserved](https://img.shields.io/badge/License-Proprietary-red.svg)
 
 Scroll less. Live more.
 
@@ -30,4 +30,5 @@ ScrollPulse counts every scroll you make, with a live floating bubble, and track
 Built with HTML, CSS & JS in one file.
 
 ### License
-This project is licensed under the MIT License - see the LICENSE file for details.
+### License
+© 2026 Ezaan Ahmed. All Rights Reserved. You may use this app, but you may NOT copy, publish, distribute, modify or sell it. See the LICENSE file for full terms.
