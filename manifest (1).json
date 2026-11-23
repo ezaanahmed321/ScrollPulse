@@ -1,0 +1,32 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "ScrollPulse",
+  "orientation": "portrait",
+  "scope": "/ScrollPulse/",
+  "short_name": "ScrollPulse",
+  "start_url": "/ScrollPulse/",
+  "theme_color": "#0A0A12",
+  "description": "ScrollPulse - A focus app to help you control scrolling and stay productive.",
+  "id": "\"id\": \"/ScrollPulse/\",",
+  "lang": "en",
+  "categories": [
+    "lifestyle",
+    "productivity",
+    "utilities"
+  ],
+  "shortcuts": [
+    {
+      "name": "Start Focus",
+      "url": "/ScrollPulse/?action=focus",
+      "description": "start a focus session"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+scrollpulse",
+      "url": "/ScrollPulse/?open=%s"
+    }
+  ]
+}
