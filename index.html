@@ -11,7 +11,8 @@
   --text:#F5F5FF; --muted:rgba(235,235,255,.58); --faint:rgba(235,235,255,.34);
   --glass:rgba(255,255,255,.055); --glass-b:rgba(255,255,255,.10);
   --grad:linear-gradient(135deg,#A855F7 0%,#22D3EE 55%,#F472B6 100%);
-  --r:24px; --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  --warn:#F59E0B;
+  --r:24px; --safe-b:var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px)); --safe-t:var(--safe-area-inset-top,env(safe-area-inset-top,0px));
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{background:var(--bg);color-scheme:dark;scroll-behavior:auto}
@@ -32,7 +33,7 @@ svg{display:block}
 
 /* layout */
 .app{position:relative;z-index:1;min-height:100vh}
-.main{padding:calc(18px + var(--safe-t)) 16px calc(110px + var(--safe-b));max-width:1120px;margin:0 auto}
+.main{padding:calc(20px + var(--safe-t)) 18px calc(118px + var(--safe-b));max-width:1120px;margin:0 auto}
 .sidebar{display:none}
 .bottomnav{position:fixed;left:12px;right:12px;bottom:calc(10px + var(--safe-b));z-index:60;display:flex;padding:8px;border-radius:26px;background:rgba(18,18,32,.72)}
 .bottomnav .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 0;border-radius:18px;font-size:12px;font-weight:600;color:var(--muted);transition:.25s}
@@ -44,8 +45,8 @@ svg{display:block}
 
 h1{font-size:30px;font-weight:800;letter-spacing:-.03em}
 h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
-.sub{color:var(--muted);font-size:14px;margin-top:4px}
-.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:6px 2px 18px}
+.sub{color:var(--muted);font-size:14px;margin-top:4px;line-height:1.45}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:8px 2px 22px}
 .live{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.1em;padding:7px 12px;border-radius:99px;background:rgba(52,211,153,.12);color:var(--good);border:1px solid rgba(52,211,153,.25)}
 .live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:ping 1.8s infinite}
 @keyframes ping{70%{box-shadow:0 0 0 9px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
@@ -60,13 +61,13 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 .btn[disabled]{opacity:.45;pointer-events:none}
 
 /* hero */
-.hero{display:grid;gap:18px;padding:26px 22px;position:relative;overflow:hidden}
+.hero{display:grid;gap:22px;padding:28px 24px;position:relative;overflow:hidden}
 .hero.pulse{animation:heroPulse .7s ease}
 @keyframes heroPulse{0%{box-shadow:0 0 0 0 rgba(34,211,238,.55)}100%{box-shadow:0 0 0 38px rgba(34,211,238,0)}}
 .hero-l small,.cap{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.big{font-size:clamp(76px,22vw,150px);font-weight:800;line-height:.95;letter-spacing:-.055em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums;margin:10px 0 12px;display:inline-block;filter:drop-shadow(0 6px 30px rgba(168,85,247,.35))}
-.bump{animation:bump .22s ease}
-@keyframes bump{50%{transform:scale(1.045)}}
+.big{font-size:clamp(76px,22vw,150px);font-weight:800;line-height:.95;letter-spacing:-.055em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums;margin:12px 0 14px;display:inline-block;filter:drop-shadow(0 6px 30px rgba(168,85,247,.35));will-change:transform}
+.bump{animation:bump .32s cubic-bezier(.3,1.5,.5,1)}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
 .chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:99px;font-size:13px;font-weight:700;background:rgba(255,255,255,.07);border:1px solid var(--glass-b)}
 .chip.good{color:var(--good);background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.28)}
 .chip.bad{color:var(--pink);background:rgba(244,114,182,.1);border-color:rgba(244,114,182,.3)}
@@ -74,14 +75,14 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 .ring-box{position:relative;width:176px;height:176px;flex:none}
 .ring{width:100%;height:100%}
 .ring-track{fill:none;stroke:rgba(255,255,255,.07);stroke-width:14}
-.ring-arc{fill:none;stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 10px rgba(34,211,238,.55))}
+.ring-arc{fill:none;stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 10px rgba(34,211,238,.55))}
 .ring-mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
-.ring-mid b{font-size:36px;font-weight:800;letter-spacing:-.03em}
+.ring-mid b{font-size:36px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .ring-mid span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.ring-txt p{font-size:15px;font-weight:600;line-height:1.35}
+.ring-txt p{font-size:15px;font-weight:600;line-height:1.35;margin:4px 0}
 .ring-txt span{font-size:13px;color:var(--muted)}
 
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0}
 .stat{padding:18px 16px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
 .stat:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22)}
 .stat .ico{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;margin-bottom:12px}
@@ -93,16 +94,16 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 .stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .stat span{font-size:12px;color:var(--muted);font-weight:600}
 
-.cols{display:grid;gap:14px}
-.card{padding:20px 18px}
-.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.cols{display:grid;gap:16px}
+.card{padding:22px 20px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
 .seg{display:flex;padding:3px;border-radius:12px;background:rgba(255,255,255,.06)}
 .seg button{padding:6px 12px;border-radius:9px;font-size:12px;font-weight:700;color:var(--muted)}
 .seg button.on{background:rgba(168,85,247,.35);color:#fff}
 .chart-box{position:relative;height:230px}
-.note{font-size:12.5px;color:var(--faint);margin-top:10px;line-height:1.45}
+.note{font-size:12.5px;color:var(--faint);margin-top:12px;line-height:1.5}
 
-.badges{display:grid;gap:10px}
+.badges{display:grid;gap:12px}
 .badge{display:flex;align-items:center;gap:14px;padding:12px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid var(--glass-b);filter:grayscale(1);opacity:.55;transition:.4s}
 .badge.on{filter:none;opacity:1;background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(34,211,238,.12));border-color:rgba(168,85,247,.5);box-shadow:0 0 28px rgba(168,85,247,.22)}
 .badge .em{font-size:30px;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.07)}
@@ -111,6 +112,15 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 .badge p{font-size:12px;color:var(--muted);margin:2px 0 7px}
 .bar{height:6px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--grad);border-radius:9px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+
+/* limit progress bar */
+.limit-meter{grid-column:1/-1}
+.lm-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;font-size:13px;font-weight:700;color:var(--muted)}
+.lm-top b{color:var(--text);font-variant-numeric:tabular-nums}
+.lm-track{position:relative;height:10px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.35)}
+.lm-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:99px;background:linear-gradient(90deg,#A855F7,#22D3EE);box-shadow:0 0 14px rgba(34,211,238,.45);transition:width .8s cubic-bezier(.2,.8,.2,1),background .4s,box-shadow .4s}
+.lm-fill.warn{background:linear-gradient(90deg,#A855F7,var(--warn));box-shadow:0 0 14px rgba(245,158,11,.45)}
+.lm-fill.over{background:linear-gradient(90deg,#F472B6,#A855F7);box-shadow:0 0 14px rgba(244,114,182,.55)}
 
 /* demo feed */
 .feed-head{margin:26px 4px 12px}
@@ -129,10 +139,11 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 .sentinel{height:60px;display:grid;place-items:center;color:var(--faint);font-size:12px}
 
 /* settings */
-.grid2{display:grid;gap:14px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.grid2{display:grid;gap:16px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.row-r{display:flex;align-items:center;gap:12px;flex:none}
 .row:last-child{border-bottom:0}
-.row b{font-size:15px;display:block}.row p{font-size:12.5px;color:var(--muted);margin-top:2px}
+.row b{font-size:15px;display:block}.row p{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.4}
 .switch{position:relative;width:52px;height:30px;flex:none}
 .switch input{opacity:0;position:absolute;inset:0;z-index:2;cursor:pointer}
 .switch span{position:absolute;inset:0;border-radius:99px;background:rgba(255,255,255,.12);transition:.3s}
@@ -145,11 +156,11 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 .stepper input{flex:1;min-width:0;height:44px;border-radius:14px;border:1px solid var(--glass-b);background:rgba(0,0,0,.25);color:#fff;font-size:22px;font-weight:800;text-align:center;outline:none}
 .stepper input:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,85,247,.25)}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.chips button{padding:8px 14px;border-radius:99px;font-size:13px;font-weight:700;background:rgba(255,255,255,.06);border:1px solid var(--glass-b);color:var(--muted)}
+.chips button{padding:8px 14px;border-radius:99px;font-size:13px;font-weight:700;background:rgba(255,255,255,.06);border:1px solid var(--glass-b);color:var(--muted);transition:.2s}
 .chips button.on{background:rgba(168,85,247,.3);color:#fff;border-color:var(--purple)}
 
 /* permissions */
-.perm{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.perm{display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .perm:last-child{border-bottom:0}
 .perm-ic{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;flex:none;background:linear-gradient(135deg,rgba(168,85,247,.25),rgba(34,211,238,.18));color:#E9D5FF}
 .perm-ic svg{width:21px;height:21px}
@@ -184,7 +195,7 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 .logo svg{width:40px;height:40px;stroke-width:2.4}
 .ob h1{font-size:36px;line-height:1.08;margin-bottom:12px}
 .ob h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.feat{display:grid;gap:10px;margin-top:24px}
+.feat{display:grid;gap:12px;margin-top:24px}
 .feat div{display:flex;gap:14px;align-items:center;padding:14px;border-radius:18px}
 .feat .em{font-size:26px}.feat b{font-size:15px}.feat p{font-size:13px;color:var(--muted);margin-top:2px}
 .ob-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;position:sticky;bottom:0;padding-top:10px}
@@ -252,7 +263,7 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
     <div class="brand"><div class="lg" data-ic="pulse"></div><div><b>ScrollPulse</b><small>Scroll less. Live more.</small></div></div>
     <button class="nav-btn active" data-go="dashboard"><i data-ic="home"></i>Dashboard</button>
     <button class="nav-btn" data-go="settings"><i data-ic="sliders"></i>Settings</button>
-    <div class="side-card"><span class="cap">Today</span><b id="sideToday">0</b><span id="sideGoal">of 200 goal</span></div>
+    <div class="side-card"><span class="cap">Today</span><b id="sideToday">0</b><span id="sideLimit">of 200 limit</span></div>
   </aside>
 
   <main class="main"><div class="inner">
@@ -280,14 +291,19 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
             <svg class="ring" viewBox="0 0 200 200">
               <defs>
                 <linearGradient id="gradRing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A855F7"/><stop offset=".55" stop-color="#22D3EE"/><stop offset="1" stop-color="#34D399"/></linearGradient>
+                <linearGradient id="gradWarn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A855F7"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
                 <linearGradient id="gradOver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F472B6"/><stop offset="1" stop-color="#A855F7"/></linearGradient>
               </defs>
               <circle class="ring-track" cx="100" cy="100" r="86"/>
               <circle id="ringArc" class="ring-arc" cx="100" cy="100" r="86" stroke="url(#gradRing)" transform="rotate(-90 100 100)"/>
             </svg>
-            <div class="ring-mid"><b id="ringPct">0%</b><span>of goal</span></div>
+            <div class="ring-mid"><b id="ringPct">0%</b><span>of limit</span></div>
           </div>
-          <div class="ring-txt"><span class="cap">Daily goal</span><p id="ringLabel">—</p><span id="ringSub"></span></div>
+          <div class="ring-txt"><span class="cap">Daily limit</span><p id="ringLabel">—</p><span id="ringSub"></span></div>
+        </div>
+        <div class="limit-meter">
+          <div class="lm-top"><span><b id="lmUsed">0</b> used</span><span id="lmLimit">Limit 200</span></div>
+          <div class="lm-track"><div class="lm-fill" id="lmFill"></div></div>
         </div>
       </div>
 
@@ -302,43 +318,45 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
         <div class="glass card">
           <div class="card-head"><h2>Last 7 days</h2><div class="seg"><button class="on" id="segBars">Bars</button><button id="segLine">Line</button></div></div>
           <div class="chart-box"><canvas id="chartCanvas"></canvas></div>
-          <p class="note">Dashed pink line = your daily goal. Bars over the line turn pink.</p>
+          <p class="note">Dashed pink line = your daily limit. Bars over the line turn pink.</p>
         </div>
         <div class="glass card">
           <div class="card-head"><h2>Badges</h2><span class="chip" id="streakText">0-day streak</span></div>
           <div class="badges" id="badgeList"></div>
-          <p class="note">Badges reward scrolling <b>less</b>: consecutive days under your goal. Today counts while you're under it.</p>
+          <p class="note">Badges reward scrolling <b>less</b>: consecutive days under your limit. Today counts while you're under it.</p>
         </div>
       </div>
 
-      <div class="feed-head">
-        <h2>Test feed</h2>
-        <p class="sub">Scroll this endless feed to try the counter. Every scroll gesture counts as 1 (a pause of about 0.3s starts a new scroll).</p>
+      <div id="testFeed">
+        <div class="feed-head">
+          <h2>Test feed</h2>
+          <p class="sub">Browser preview only. Scroll this endless feed to try the counter. Every scroll gesture counts as 1 (a pause of about 0.3s starts a new scroll).</p>
+        </div>
+        <div class="feed" id="feed"></div>
+        <div class="sentinel" id="sentinel">Loading more…</div>
       </div>
-      <div class="feed" id="feed"></div>
-      <div class="sentinel" id="sentinel">Loading more…</div>
     </section>
 
     <!-- SETTINGS -->
     <section class="page" id="page-settings">
-      <div class="page-head"><div><h1>Settings</h1><p class="sub">Tune your goal, feedback and permissions.</p></div></div>
+      <div class="page-head"><div><h1>Settings</h1><p class="sub">Tune your limit, feedback and permissions.</p></div></div>
       <div class="grid2">
         <div class="glass card">
-          <h2>Daily scroll goal</h2>
-          <p class="sub" style="margin-bottom:12px">Stay under this number to earn badges.</p>
+          <h2>Daily scroll limit</h2>
+          <p class="sub" style="margin-bottom:12px">Stay under this number to earn badges. Reaching it plays a chime and shows a break screen.</p>
           <div class="stepper">
-            <button id="goalMinus" aria-label="Decrease"><i data-ic="minus"></i></button>
-            <input id="optGoal" type="number" inputmode="numeric" min="10" max="9999" step="1">
-            <button id="goalPlus" aria-label="Increase"><i data-ic="plus"></i></button>
+            <button id="limitMinus" aria-label="Decrease"><i data-ic="minus"></i></button>
+            <input id="optLimit" type="number" inputmode="numeric" min="10" max="9999" step="1">
+            <button id="limitPlus" aria-label="Increase"><i data-ic="plus"></i></button>
           </div>
-          <div class="chips" id="goalChips"></div>
+          <div class="chips" id="limitChips"></div>
         </div>
 
         <div class="glass card">
           <h2 style="margin-bottom:4px">Preferences</h2>
-          <div class="row"><div><b>Sound</b><p>Soft chime every 100 scrolls</p></div><label class="switch"><input type="checkbox" id="optSound"><span></span></label></div>
-          <div class="row"><div><b>Vibration</b><p>Short buzz every 100 scrolls</p></div><label class="switch"><input type="checkbox" id="optVibe"><span></span></label></div>
-          <div class="row"><div><b>Floating bubble</b><p>Live counter you can drag anywhere</p></div><label class="switch"><input type="checkbox" id="optBubble"><span></span></label></div>
+          <div class="row"><div><b>Sound</b><p>Soft chime once when you reach your limit</p></div><div class="row-r"><button class="btn small ghost" id="btnTestSound">Test</button><label class="switch"><input type="checkbox" id="optSound"><span></span></label></div></div>
+          <div class="row"><div><b>Vibration</b><p>Short buzz once when you reach your limit</p></div><label class="switch"><input type="checkbox" id="optVibe"><span></span></label></div>
+          <div class="row"><div><b>Floating bubble</b><p id="optBubbleDesc">Live counter you can drag anywhere</p></div><label class="switch"><input type="checkbox" id="optBubble"><span></span></label></div>
         </div>
 
         <div class="glass card wide" id="permCard">
@@ -355,7 +373,7 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 
         <div class="glass card">
           <h2>About</h2>
-          <p class="sub" style="margin-top:6px;line-height:1.55">ScrollPulse v1.0 &middot; Your data stays on this device. Nothing is uploaded and no content is ever read &mdash; only the fact that a scroll happened.</p>
+          <p class="sub" style="margin-top:6px;line-height:1.55">ScrollPulse v1.1 &middot; Your data stays on this device. Nothing is uploaded and no content is ever read &mdash; only the fact that a scroll happened.</p>
         </div>
       </div>
     </section>
@@ -370,7 +388,7 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 <!-- floating bubble -->
 <div id="bubble" role="button" aria-label="Live scroll counter">
   <div class="b-dot"></div>
-  <div class="b-txt"><span class="b-count" id="bubbleCount">0</span><span class="b-label">today</span></div>
+  <div class="b-txt"><span class="b-count" id="bubbleCount">0</span><span class="b-label" id="bubbleLabel">/ 200</span></div>
   <button class="b-min" id="bubbleMin" aria-label="Minimize"><i data-ic="minus"></i></button>
 </div>
 
@@ -379,10 +397,10 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
   <div class="ob-step on" data-step="0">
     <div class="logo" data-ic="pulse"></div>
     <h1>Know your <em>scroll.</em><br>Own your time.</h1>
-    <p class="sub" style="font-size:16px;line-height:1.5">ScrollPulse counts every scroll, shows it live, and rewards you for scrolling less.</p>
+    <p class="sub" style="font-size:16px;line-height:1.5">ScrollPulse counts your scrolls in Instagram, YouTube and TikTok, shows them live, and helps you stay under your limit.</p>
     <div class="feat">
       <div class="glass"><span class="em">🔢</span><span><b>Live counter</b><p>Today, week, month and year totals.</p></span></div>
-      <div class="glass"><span class="em">🫧</span><span><b>Floating bubble</b><p>Always-visible count you can drag anywhere.</p></span></div>
+      <div class="glass"><span class="em">🫧</span><span><b>Floating bubble</b><p>Always-visible count that floats over your apps.</p></span></div>
       <div class="glass"><span class="em">🏅</span><span><b>Calm badges</b><p>Earn Chill Day, Focus Master and Scroll Ninja.</p></span></div>
     </div>
   </div>
@@ -393,9 +411,9 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
     <p class="note" id="obPermNote"></p>
   </div>
   <div class="ob-step" data-step="2">
-    <h1 style="margin-top:20px">Set your <em>daily goal</em></h1>
-    <p class="sub" style="font-size:15px;line-height:1.5;margin-bottom:18px">How many scrolls is a healthy day for you? Staying under it earns badges. You can change it any time.</p>
-    <div class="glass card"><div class="chips" id="obGoalChips" style="margin-bottom:6px"></div></div>
+    <h1 style="margin-top:20px">Set your <em>daily limit</em></h1>
+    <p class="sub" style="font-size:15px;line-height:1.5;margin-bottom:18px">How many scrolls is a healthy day for you? Staying under it earns badges, and reaching it gives you a gentle nudge to take a break. You can change it any time.</p>
+    <div class="glass card"><div class="chips" id="obLimitChips" style="margin-bottom:6px"></div></div>
   </div>
   <div class="ob-nav">
     <button class="btn ghost" id="obBack">Back</button>
@@ -411,7 +429,8 @@ h2{font-size:17px;font-weight:700;letter-spacing:-.01em}
 </div></div>
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<!-- Chart.js: bundled copy first (npm run sync puts it in www/vendor/) so the app works offline; falls back to the CDN -->
+<script src="vendor/chart.umd.js" defer onerror="this.onerror=null;var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';s.onload=function(){window.dispatchEvent(new Event('chart-ready'))};document.head.appendChild(s)"></script>
 <script>
 (function(){
 'use strict';
@@ -451,21 +470,27 @@ function ic(n){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor
 function injectIcons(root){ $$('[data-ic]',root).forEach(function(e){ e.innerHTML=ic(e.getAttribute('data-ic')); }); }
 
 /* ---------- state ---------- */
-function defaults(){return {settings:{goal:200,sound:true,vibration:true,bubble:true},days:{},badges:{},perm:{},onboarded:false,firstDay:todayKey(),bubble:{side:'r',y:.45,min:false}}}
+function defaults(){return {settings:{limit:200,sound:true,vibration:true,bubble:true},days:{},badges:{},perm:{},onboarded:false,firstDay:todayKey(),limitDay:'',bubble:{side:'r',y:.45,min:false}}}
 function load(){
   var d=defaults();
   try{ var raw=localStorage.getItem(KEY); if(raw){ var p=JSON.parse(raw);
-    return Object.assign({},d,p,{settings:Object.assign({},d.settings,p.settings||{}),bubble:Object.assign({},d.bubble,p.bubble||{}),perm:p.perm||{},badges:p.badges||{},days:p.days||{}}); } }catch(e){}
+    var st=Object.assign({},d.settings,p.settings||{});
+    if(p.settings&&p.settings.goal!=null&&p.settings.limit==null) st.limit=p.settings.goal; /* migrate data saved before the Goal -> Limit rename */
+    delete st.goal;
+    return Object.assign({},d,p,{settings:st,bubble:Object.assign({},d.bubble,p.bubble||{}),perm:p.perm||{},badges:p.badges||{},days:p.days||{}}); } }catch(e){}
   return d;
 }
 var state=load(), saveT=0;
 function save(now){ clearTimeout(saveT); var w=function(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}; if(now) w(); else saveT=setTimeout(w,250); }
 window.addEventListener('pagehide',function(){save(true)});
-document.addEventListener('visibilitychange',function(){ if(document.hidden) save(true); else { refreshPerms(); } });
+document.addEventListener('visibilitychange',function(){ if(document.hidden) save(true); else { if(IS_NATIVE){ pullNative(); syncFromNative(); renderStats(); } refreshPerms(); } });
 
 var nativeDays={};
 function pullNative(){ if(!IS_NATIVE) return; try{ nativeDays=JSON.parse(NATIVE.getDays()||'{}'); }catch(e){} }
 function pushNativeSettings(){ if(!IS_NATIVE) return; try{ NATIVE.setSettings(JSON.stringify(state.settings)); }catch(e){} }
+/* the native bubble's close button turns the bubble setting off - mirror that in the Settings toggle */
+function syncFromNative(){ if(!IS_NATIVE) return; try{ var n=JSON.parse(NATIVE.getSettings()||'{}');
+  if(typeof n.bubble==='boolean'&&n.bubble!==state.settings.bubble){ state.settings.bubble=n.bubble; $('#optBubble').checked=n.bubble; save(); } }catch(e){} }
 function days(){ return IS_NATIVE?nativeDays:state.days; }
 function count(k){ return days()[k]||0; }
 function sumFrom(a,b){ var s=0, dd=days(); for(var k in dd){ if(k>=a&&k<=b) s+=dd[k]; } return s; }
@@ -485,8 +510,9 @@ function chime(){
     o.connect(g); g.connect(c.destination); o.start(t+n[1]); o.stop(t+n[1]+.55); });
   return true;
 }
-['pointerdown','keydown','touchstart'].forEach(function(ev){ addEventListener(ev,function(){ if(state.settings.sound) audio(); },{passive:true}); });
+['pointerdown','keydown','touchstart'].forEach(function(ev){ addEventListener(ev,function(){ if(state.settings.sound&&!IS_NATIVE) audio(); },{passive:true}); });
 function buzz(){ if(navigator.vibrate){ try{navigator.vibrate([70,40,70]);}catch(e){} } }
+function previewChime(){ if(IS_NATIVE){ try{ NATIVE.testChime(); }catch(e){} } else { audio(); chime(); buzz(); } }
 
 /* ---------- toast / modal ---------- */
 var toastT=0;
@@ -497,32 +523,38 @@ function confirmDialog(o){ return new Promise(function(res){ var m=$('#modal'); 
 
 /* ---------- number helpers ---------- */
 function bump(n){ n.classList.remove('bump'); void n.offsetWidth; n.classList.add('bump'); }
+/* count-up: every change animates (short for +1, longer for big jumps), eased out so it settles softly */
 function setNum(n,to){
   var from=n._v==null?0:n._v; n._v=to; cancelAnimationFrame(n._raf);
   if(from===to){ n.textContent=fmt(to); return; }
-  if(Math.abs(to-from)<=3){ n.textContent=fmt(to); return; }
-  var t0=performance.now(), dur=650;
-  (function step(now){ var p=clamp((now-t0)/dur,0,1), e=1-Math.pow(1-p,3); n.textContent=fmt(Math.round(from+(to-from)*e)); if(p<1) n._raf=requestAnimationFrame(step); })(t0);
+  var diff=Math.abs(to-from), dur=clamp(260+diff*6,260,900), t0=performance.now();
+  (function step(now){
+    var p=clamp((now-t0)/dur,0,1), e=1-Math.pow(1-p,4);
+    n.textContent=fmt(Math.round(from+(to-from)*e));
+    if(p<1) n._raf=requestAnimationFrame(step); else n.textContent=fmt(to);
+  })(t0);
 }
 
 /* ---------- rendering ---------- */
 var RING_C=2*Math.PI*86, chart=null, chartType='bar', chartT=0, lastDay=todayKey();
 function renderStats(){
-  var p=periods(), goal=state.settings.goal;
+  var p=periods(), limit=state.settings.limit;
   var big=$('#bigToday'); var prev=big._v; setNum(big,p.today); if(prev!=null&&prev!==p.today) bump(big);
   setNum($('#stToday'),p.today); setNum($('#stWeek'),p.week); setNum($('#stMonth'),p.month); setNum($('#stYear'),p.year);
   var wk=new Date(p.mon); $('#stWeekSub').textContent='Since '+wk.toLocaleDateString(undefined,{weekday:'short',day:'numeric'});
   $('#stMonthSub').textContent=new Date().toLocaleDateString(undefined,{month:'long'});
   $('#stYearSub').textContent=String(new Date().getFullYear());
-  $('#sideToday').textContent=fmt(p.today); $('#sideGoal').textContent='of '+fmt(goal)+' goal';
-  $('#bubbleCount').textContent=compact(p.today);
+  $('#sideToday').textContent=fmt(p.today); $('#sideLimit').textContent='of '+fmt(limit)+' limit';
+  $('#bubbleCount').textContent=compact(p.today); $('#bubbleLabel').textContent='/ '+compact(limit);
 
-  var arc=$('#ringArc'); arc.style.strokeDasharray=RING_C; arc.style.strokeDashoffset=RING_C*(1-clamp(p.today/goal,0,1));
-  var over=p.today>goal; arc.setAttribute('stroke',over?'url(#gradOver)':'url(#gradRing)');
-  $('#ringPct').textContent=Math.round(p.today/goal*100)+'%';
-  var left=goal-p.today;
-  $('#ringLabel').textContent= left>0 ? fmt(left)+' left under your goal' : (left===0?'Goal reached':fmt(-left)+' over your goal');
-  $('#ringSub').textContent= over?'Time for a break? 🌿':(p.today>=goal*.8?'Almost there, easy does it':'You\'re on a calm pace ✨');
+  var arc=$('#ringArc'); arc.style.strokeDasharray=RING_C; arc.style.strokeDashoffset=RING_C*(1-clamp(p.today/limit,0,1));
+  var over=p.today>=limit, near=p.today>=limit*.8; arc.setAttribute('stroke',over?'url(#gradOver)':(near?'url(#gradWarn)':'url(#gradRing)'));
+  $('#ringPct').textContent=Math.round(p.today/limit*100)+'%';
+  var left=limit-p.today;
+  $('#ringLabel').textContent= left>0 ? fmt(left)+' left under your limit' : (left===0?'Limit reached':fmt(-left)+' over your limit');
+  $('#ringSub').textContent= over?'Time for a break? 🌿':(near?'Getting close, easy does it':'You\'re on a calm pace ✨');
+  setNum($('#lmUsed'),p.today); $('#lmLimit').textContent='Limit '+fmt(limit);
+  var fill=$('#lmFill'); fill.style.width=(clamp(p.today/limit,0,1)*100)+'%'; fill.className='lm-fill'+(over?' over':(near?' warn':''));
 
   var y=new Date(); y.setDate(y.getDate()-1); var yc=count(keyOf(y)), chip=$('#deltaChip');
   chip.className='chip';
@@ -535,10 +567,10 @@ function renderStats(){
 function renderDate(){ $('#dateLine').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}); }
 
 /* chart */
-function chartData(){ var ds=lastN(7), goal=state.settings.goal; return {labels:ds.map(function(d){return d.label}),vals:ds.map(function(d){return count(d.key)}),goal:ds.map(function(){return goal})}; }
+function chartData(){ var ds=lastN(7), limit=state.settings.limit; return {labels:ds.map(function(d){return d.label}),vals:ds.map(function(d){return count(d.key)}),limit:ds.map(function(){return limit})}; }
 function buildChart(){
   var cv=$('#chartCanvas'); if(!cv) return;
-  if(typeof Chart==='undefined'){ cv.parentNode.innerHTML='<div class="nochart">Chart needs an internet connection to load Chart.js.<br>Your counts are still being saved.</div>'; return; }
+  if(typeof Chart==='undefined'){ cv.parentNode.innerHTML='<div class="nochart">Chart.js could not be loaded (run "npm run sync" once, or connect to the internet).<br>Your counts are still being saved.</div>'; return; }
   if(chart){ chart.destroy(); chart=null; }
   var d=chartData(), muted='rgba(235,235,255,.55)', grid='rgba(255,255,255,.07)';
   var isBar=chartType==='bar';
@@ -548,25 +580,25 @@ function buildChart(){
       {label:'Scrolls',data:d.vals,order:2,
         borderRadius:isBar?12:0,borderSkipped:false,maxBarThickness:46,
         borderColor:'#22D3EE',borderWidth:isBar?0:3,tension:.4,fill:!isBar,pointRadius:isBar?0:5,pointBackgroundColor:'#0A0A12',pointBorderColor:'#22D3EE',pointBorderWidth:3,
-        backgroundColor:function(c){ var ch=c.chart, a=ch.chartArea; if(!a) return '#A855F7'; var g=ch.ctx.createLinearGradient(0,a.bottom,0,a.top); var over=isBar&&c.raw>state.settings.goal;
+        backgroundColor:function(c){ var ch=c.chart, a=ch.chartArea; if(!a) return '#A855F7'; var g=ch.ctx.createLinearGradient(0,a.bottom,0,a.top); var over=isBar&&c.raw>state.settings.limit;
           if(!isBar){ g.addColorStop(0,'rgba(168,85,247,0)'); g.addColorStop(1,'rgba(34,211,238,.35)'); return g; }
           g.addColorStop(0,over?'rgba(168,85,247,.35)':'rgba(168,85,247,.4)'); g.addColorStop(1,over?'rgba(244,114,182,.95)':'rgba(34,211,238,.95)'); return g; }},
-      {type:'line',label:'Goal',data:d.goal,order:1,borderColor:'#F472B6',borderDash:[7,6],borderWidth:2,pointRadius:0,fill:false}
+      {type:'line',label:'Limit',data:d.limit,order:1,borderColor:'#F472B6',borderDash:[7,6],borderWidth:2,pointRadius:0,fill:false}
     ]},
     options:{responsive:true,maintainAspectRatio:false,animation:{duration:700,easing:'easeOutQuart'},interaction:{mode:'index',intersect:false},
       plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(20,20,36,.95)',borderColor:'rgba(255,255,255,.12)',borderWidth:1,padding:12,cornerRadius:12,titleColor:'#fff',bodyColor:'#ddd'}},
       scales:{x:{grid:{display:false},border:{display:false},ticks:{color:muted,font:{weight:'600'}}},y:{beginAtZero:true,grid:{color:grid},border:{display:false},ticks:{color:muted,precision:0,maxTicksLimit:5}}}}
   });
 }
-function updateChart(){ if(!chart) return; var d=chartData(); chart.data.labels=d.labels; chart.data.datasets[0].data=d.vals; chart.data.datasets[1].data=d.goal; chart.update('none'); }
+function updateChart(){ if(!chart) return; var d=chartData(); chart.data.labels=d.labels; chart.data.datasets[0].data=d.vals; chart.data.datasets[1].data=d.limit; chart.update('none'); }
 $('#segBars').onclick=function(){ chartType='bar'; $('#segBars').classList.add('on'); $('#segLine').classList.remove('on'); buildChart(); };
 $('#segLine').onclick=function(){ chartType='line'; $('#segLine').classList.add('on'); $('#segBars').classList.remove('on'); buildChart(); };
 
 /* badges */
-var BADGES=[{id:'chill',need:1,em:'🌿',name:'Chill Day',desc:'Stay under your daily goal'},{id:'focus',need:3,em:'🎯',name:'Focus Master',desc:'3 days in a row under goal'},{id:'ninja',need:7,em:'🥷',name:'Scroll Ninja',desc:'7 days in a row under goal'}];
+var BADGES=[{id:'chill',need:1,em:'🌿',name:'Chill Day',desc:'Stay under your daily limit'},{id:'focus',need:3,em:'🎯',name:'Focus Master',desc:'3 days in a row under your limit'},{id:'ninja',need:7,em:'🥷',name:'Scroll Ninja',desc:'7 days in a row under your limit'}];
 function streak(){
-  var dd=days(), goal=state.settings.goal, d=new Date(), s=0;
-  for(var i=0;i<366;i++){ var k=keyOf(d); if(k<state.firstDay) break; var c=dd[k]||0; if(c>=goal) break; if(!(i===0&&c===0)) s++; d.setDate(d.getDate()-1); }
+  var dd=days(), limit=state.settings.limit, d=new Date(), s=0;
+  for(var i=0;i<366;i++){ var k=keyOf(d); if(k<state.firstDay) break; var c=dd[k]||0; if(c>=limit) break; if(!(i===0&&c===0)) s++; d.setDate(d.getDate()-1); }
   return s;
 }
 function evaluateBadges(){
@@ -582,15 +614,24 @@ function renderBadges(){
 
 /* ---------- scroll counting ---------- */
 var GAP=280, lastSignal=0, suppressUntil=0, onboardingOpen=false;
+/* Android app: scrolls are counted ONLY by the Accessibility Service (ScrollAccessibilityService.java) and ONLY inside
+   Instagram / YouTube / TikTok. Scrolling inside ScrollPulse itself is never counted, so on Android none of this runs.
+   Browser preview (VS Code Live Server): the Test feed below counts, so you can try the UI without a phone. */
 function registerScroll(){
   var k=todayKey();
-  if(IS_NATIVE){ try{NATIVE.addScroll();}catch(e){} nativeDays[k]=(nativeDays[k]||0)+1; }
-  else { state.days[k]=(state.days[k]||0)+1; save(); }
-  var n=count(k); renderStats(); tickBubble(); milestone(n);
+  state.days[k]=(state.days[k]||0)+1; save();
+  var n=count(k); renderStats(); tickBubble(); checkLimit(n);
 }
-function milestone(n){
-  if(n>0&&n%100===0){ if(state.settings.sound) chime(); if(state.settings.vibration) buzz(); $('#hero').classList.remove('pulse'); void $('#hero').offsetWidth; $('#hero').classList.add('pulse'); toast('🎉 '+fmt(n)+' scrolls today'); }
-  if(n===state.settings.goal&&!IS_NATIVE){ try{ if('Notification' in window&&Notification.permission==='granted') new Notification('ScrollPulse',{body:'You reached your daily goal of '+fmt(n)+' scrolls.'}); }catch(e){} }
+/* limit reached: chime + buzz exactly ONCE per limit (re-arms if you raise the limit or reset the data) */
+function checkLimit(n){
+  var limit=state.settings.limit;
+  if(n<limit){ if(state.limitDay){ state.limitDay=''; save(); } return; }
+  if(state.limitDay===todayKey()) return;
+  state.limitDay=todayKey(); save();
+  if(state.settings.sound) chime(); if(state.settings.vibration) buzz();
+  $('#hero').classList.remove('pulse'); void $('#hero').offsetWidth; $('#hero').classList.add('pulse');
+  toast('🛑 Limit reached: '+fmt(n)+' scrolls today');
+  try{ if('Notification' in window&&Notification.permission==='granted') new Notification('ScrollPulse',{body:'You reached your daily limit of '+fmt(limit)+' scrolls.'}); }catch(e){}
 }
 function onScroll(){
   var now=performance.now();
@@ -598,7 +639,7 @@ function onScroll(){
   if(now-lastSignal>GAP) registerScroll();
   lastSignal=now;
 }
-document.addEventListener('scroll',onScroll,{capture:true,passive:true});
+if(!IS_NATIVE) document.addEventListener('scroll',onScroll,{capture:true,passive:true});
 function quietScroll(top,smooth){ suppressUntil=performance.now()+900; try{window.scrollTo({top:top,behavior:smooth?'smooth':'auto'});}catch(e){window.scrollTo(0,top);} }
 
 /* ---------- navigation ---------- */
@@ -614,18 +655,16 @@ $$('[data-go]').forEach(function(b){ b.onclick=function(){go(b.getAttribute('dat
 
 /* ---------- permissions ---------- */
 var PERMS_NATIVE=[
- {key:'overlay',ic:'layers',title:'Display over other apps',req:true,why:'Shows the floating bubble on top of Instagram, TikTok and YouTube so you can see your live count while you scroll.'},
- {key:'accessibility',ic:'access',title:'Accessibility service',req:true,why:'Lets ScrollPulse notice that a scroll happened in other apps, even when this app is closed. It never reads your messages, passwords or screen content.'},
- {key:'usage',ic:'usage',title:'Usage access',req:false,why:'Tells ScrollPulse which app is currently open, so only scrolls in the apps you track are counted.'},
- {key:'notifications',ic:'bell',title:'Notifications',req:false,why:'Shows your live count in the notification shade and keeps the bubble running reliably.'},
- {key:'vibration',ic:'vibrate',title:'Vibration',req:false,why:'Gives a short buzz every 100 scrolls. Granted automatically when the app is installed.'}
+ {key:'overlay',ic:'layers',title:'Display over other apps',req:true,why:'Shows the floating counter and the Take a Break screen on top of Instagram, TikTok and YouTube.'},
+ {key:'accessibility',ic:'access',title:'Accessibility service',req:true,why:'Lets ScrollPulse notice a swipe in Instagram, YouTube or TikTok, even when this app is closed. Scrolls in every other app are ignored, and it never reads your messages, passwords or screen content.'},
+ {key:'vibration',ic:'vibrate',title:'Vibration',req:false,why:'Gives a short buzz when you reach your limit. Granted automatically when the app is installed.'}
 ];
 var PERMS_WEB=[
  {key:'storage',ic:'db',title:'Local storage',req:true,why:'Keeps your totals saved on this device so they stay after you close the tab. Nothing leaves your device.'},
  {key:'bubble',ic:'bubble',title:'Floating bubble overlay',req:false,why:'Shows the draggable live counter on top of this page. For other sites, use the Chrome extension.'},
- {key:'notifications',ic:'bell',title:'Notifications',req:false,why:'Lets ScrollPulse tell you when you reach your daily goal.'},
- {key:'sound',ic:'speaker',title:'Sound',req:false,why:'Browsers block audio until you allow it. This unlocks the soft chime every 100 scrolls.'},
- {key:'vibration',ic:'vibrate',title:'Vibration',req:false,why:'Buzzes every 100 scrolls on phones that support it.'}
+ {key:'notifications',ic:'bell',title:'Notifications',req:false,why:'Lets ScrollPulse tell you when you reach your daily limit.'},
+ {key:'sound',ic:'speaker',title:'Sound',req:false,why:'Browsers block audio until you allow it. This unlocks the soft chime when you reach your limit.'},
+ {key:'vibration',ic:'vibrate',title:'Vibration',req:false,why:'Buzzes when you reach your limit, on phones that support it.'}
 ];
 function permDefs(){ return IS_NATIVE?PERMS_NATIVE:PERMS_WEB; }
 function permStatus(){
@@ -648,7 +687,7 @@ function refreshPerms(){
   renderPerms($('#permList')); if(!$('#ob').classList.contains('hidden')) renderPerms($('#obPerms'));
   var s=permSummary(); $('#permSummary').textContent=s.granted+' of '+s.total+' granted';
   $('#permNote').textContent=IS_NATIVE?'Tap "Open settings", switch ScrollPulse on, then come back — this list updates automatically.':'Counting outside this tab needs the ScrollPulse Android app or the Chrome extension.';
-  $('#obPermNote').textContent=IS_NATIVE?'Required permissions are needed for counting inside other apps. You can finish this later in Settings.':'These are optional in the browser. For counting in other apps or tabs, use the Android app or Chrome extension.';
+  $('#obPermNote').textContent=IS_NATIVE?'Both required permissions are needed for counting inside other apps. You can finish this later in Settings.':'These are optional in the browser. For counting in other apps or tabs, use the Android app or Chrome extension.';
   var b=$('#setupBanner');
   if(IS_NATIVE&&s.missingReq>0&&state.onboarded){ b.classList.remove('hidden'); $('#bannerText').textContent=s.missingReq+' required permission'+(s.missingReq>1?'s are':' is')+' missing — scrolls in other apps aren\'t being counted yet.'; }
   else b.classList.add('hidden');
@@ -664,31 +703,33 @@ function grant(key){
   refreshPerms();
 }
 document.addEventListener('click',function(e){ var b=e.target.closest('[data-grant]'); if(b) grant(b.getAttribute('data-grant')); });
-window.onNativeResume=function(){ pullNative(); refreshPerms(); renderStats(); };
+window.onNativeResume=function(){ pullNative(); syncFromNative(); refreshPerms(); renderStats(); };
 
 /* ---------- settings ---------- */
-function setGoal(v){ v=parseInt(v,10); if(!v||v<10) v=10; if(v>9999) v=9999; state.settings.goal=v; $('#optGoal').value=v; pushNativeSettings(); save(); renderGoalChips(); renderStats(); updateChart(); }
-var GOALS=[100,200,300,500,800];
-function renderGoalChips(){ ['#goalChips','#obGoalChips'].forEach(function(s){ var c=$(s); c.innerHTML=GOALS.map(function(g){ return '<button data-goal="'+g+'" class="'+(g===state.settings.goal?'on':'')+'">'+g+'</button>'; }).join(''); }); }
-document.addEventListener('click',function(e){ var b=e.target.closest('[data-goal]'); if(b) setGoal(b.getAttribute('data-goal')); });
-$('#goalMinus').onclick=function(){ setGoal(state.settings.goal-25); };
-$('#goalPlus').onclick=function(){ setGoal(state.settings.goal+25); };
-$('#optGoal').onchange=function(){ setGoal(this.value); };
-$('#optSound').onchange=function(){ state.settings.sound=this.checked; pushNativeSettings(); save(); if(this.checked){ audio(); setTimeout(chime,80); } };
-$('#optVibe').onchange=function(){ state.settings.vibration=this.checked; pushNativeSettings(); save(); if(this.checked) buzz(); };
+function setLimit(v){ v=parseInt(v,10); if(!v||v<10) v=10; if(v>9999) v=9999; state.settings.limit=v; $('#optLimit').value=v; if(count(todayKey())<v) state.limitDay=''; pushNativeSettings(); save(); renderLimitChips(); renderStats(); updateChart(); }
+var LIMITS=[100,200,300,500,800];
+function renderLimitChips(){ ['#limitChips','#obLimitChips'].forEach(function(s){ var c=$(s); c.innerHTML=LIMITS.map(function(g){ return '<button data-limit="'+g+'" class="'+(g===state.settings.limit?'on':'')+'">'+g+'</button>'; }).join(''); }); }
+document.addEventListener('click',function(e){ var b=e.target.closest('[data-limit]'); if(b) setLimit(b.getAttribute('data-limit')); });
+$('#limitMinus').onclick=function(){ setLimit(state.settings.limit-25); };
+$('#limitPlus').onclick=function(){ setLimit(state.settings.limit+25); };
+$('#optLimit').onchange=function(){ setLimit(this.value); };
+$('#optSound').onchange=function(){ state.settings.sound=this.checked; pushNativeSettings(); save(); if(this.checked) setTimeout(previewChime,80); };
+$('#btnTestSound').onclick=previewChime;
+$('#optVibe').onchange=function(){ state.settings.vibration=this.checked; pushNativeSettings(); save(); if(this.checked&&!IS_NATIVE) buzz(); };
 $('#optBubble').onchange=function(){ state.settings.bubble=this.checked; pushNativeSettings(); save(); applyBubble(); refreshPerms(); };
 $('#btnReset').onclick=function(){
   confirmDialog({title:'Reset all data?',text:'This permanently erases all your scroll counts, charts and badges. Your settings are kept.',ok:'Yes, reset'}).then(function(ok){
-    if(!ok) return; state.days={}; state.badges={}; state.firstDay=todayKey(); save(true);
+    if(!ok) return; state.days={}; state.badges={}; state.limitDay=''; state.firstDay=todayKey(); save(true);
     if(IS_NATIVE){ try{NATIVE.resetAll();}catch(e){} nativeDays={}; }
-    ['#bigToday','#stToday','#stWeek','#stMonth','#stYear'].forEach(function(s){ $(s)._v=0; });
+    ['#bigToday','#stToday','#stWeek','#stMonth','#stYear','#lmUsed'].forEach(function(s){ $(s)._v=0; });
     renderStats(); updateChart(); toast('All data reset');
   });
 };
 
 /* ---------- floating bubble ---------- */
 var bubble=$('#bubble'), isDesk=function(){return window.matchMedia('(min-width:900px)').matches};
-function applyBubble(){ bubble.classList.toggle('hidden',!state.settings.bubble); bubble.classList.toggle('min',!!state.bubble.min); if(state.settings.bubble) applyPos(); }
+/* Android: the real bubble is drawn natively over Instagram / YouTube / TikTok (OverlayManager.java), so this in-page copy is hidden. */
+function applyBubble(){ bubble.classList.toggle('hidden',IS_NATIVE||!state.settings.bubble); bubble.classList.toggle('min',!!state.bubble.min); if(!IS_NATIVE&&state.settings.bubble) applyPos(); }
 function applyPos(){
   var r=bubble.getBoundingClientRect(), w=r.width, h=r.height, vw=innerWidth, vh=innerHeight, m=10, bot=isDesk()?m:92;
   var left=state.bubble.side==='l'?m:vw-w-m;
@@ -717,7 +758,7 @@ function endDrag(){
 }
 bubble.addEventListener('pointerup',endDrag); bubble.addEventListener('pointercancel',endDrag);
 $('#bubbleMin').addEventListener('click',function(e){ e.stopPropagation(); toggleMin(); });
-addEventListener('resize',function(){ if(state.settings.bubble) applyPos(); });
+addEventListener('resize',function(){ if(!IS_NATIVE&&state.settings.bubble) applyPos(); });
 
 /* ---------- demo feed ---------- */
 var EM=['🌌','🍜','🏔️','🎧','🐙','🚀','🌮','🎨','🪴','🛹','☕','🦊','🌋','📷','🎸','🧠','🌊','🍓','🪐','🏝️'];
@@ -735,8 +776,10 @@ function addCards(n){
   feed.appendChild(f);
 }
 feed.addEventListener('click',function(e){ var b=e.target.closest('[data-like]'); if(!b) return; var s=b.querySelector('span'), on=b.classList.toggle('liked'); b.firstChild.nodeValue=on?'♥ ':'♡ '; s.textContent=(+s.textContent)+(on?1:-1); });
-if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ if(es[0].isIntersecting) addCards(10); },{rootMargin:'1000px'}).observe($('#sentinel')); }
-else { addCards(40); }
+if(!IS_NATIVE){
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ if(es[0].isIntersecting) addCards(10); },{rootMargin:'1000px'}).observe($('#sentinel')); }
+  else { addCards(40); }
+}
 
 /* ---------- onboarding ---------- */
 var obStep=0;
@@ -758,14 +801,20 @@ function tick(){
 }
 function boot(){
   injectIcons(document); pullNative(); pushNativeSettings(); renderDate();
-  $('#optSound').checked=state.settings.sound; $('#optVibe').checked=state.settings.vibration; $('#optBubble').checked=state.settings.bubble; $('#optGoal').value=state.settings.goal;
-  renderGoalChips(); addCards(8); applyBubble(); renderStats(); refreshPerms();
+  $('#optSound').checked=state.settings.sound; $('#optVibe').checked=state.settings.vibration; $('#optBubble').checked=state.settings.bubble; $('#optLimit').value=state.settings.limit;
+  $('#optBubbleDesc').textContent=IS_NATIVE?'Live count over Instagram, YouTube & TikTok':'Live counter you can drag anywhere';
+  if(IS_NATIVE) $('#testFeed').classList.add('hidden'); else addCards(8);
+  syncFromNative(); $('#optBubble').checked=state.settings.bubble;
+  renderLimitChips(); applyBubble(); renderStats(); refreshPerms();
   if(location.hash==='#settings') go('settings');
   if(!state.onboarded) openOnboarding();
   setInterval(tick,1000);
-  setTimeout(applyPos,120);
+  if(!IS_NATIVE) setTimeout(applyPos,120);
+  /* diagnostic: inside the Android WebView but the Java bridge was not injected */
+  if(!IS_NATIVE&&window.Capacitor&&window.Capacitor.getPlatform&&window.Capacitor.getPlatform()==='android') toast('Native bridge missing: check MainActivity.java was copied (see README)');
 }
 window.addEventListener('load',function(){ buildChart(); updateChart(); });
+window.addEventListener('chart-ready',function(){ buildChart(); updateChart(); });
 boot();
 })();
 </script>
